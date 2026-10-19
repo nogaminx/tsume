@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>詰将棋 解答ソフト</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">TSUME SHOGI LAB</p>
+      <h1>詰将棋 解答ソフト</h1>
+      <p class="subtitle">盤面を作成して、王手の連続による詰みを探索します。</p>
+    </div>
+    <span class="status-pill">ローカル動作</span>
+  </header>
+
+  <main class="layout">
+    <section class="panel board-panel">
+      <div class="panel-heading">
+        <div>
+          <h2>盤面</h2>
+          <p>駒一覧から盤面・持ち駒へドラッグ。盤上の駒は盤外へドラッグすると消去できます。</p>
+        </div>
+        <button id="clearBoardBtn" class="button secondary">盤面クリア</button>
+      </div>
+
+      <div class="board-area">
+      <div class="board-wrap">
+        <div class="files" aria-hidden="true"><span>９</span><span>８</span><span>７</span><span>６</span><span>５</span><span>４</span><span>３</span><span>２</span><span>１</span></div>
+        <div id="board" class="board" role="grid" aria-label="将棋盤"></div>
+        <div class="ranks" aria-hidden="true"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>七</span><span>八</span><span>九</span></div>
+      </div>
+      <div class="hands-side">
+        <div class="hand-box" data-hand-owner="w"><strong>後手の持ち駒</strong><div id="handW" class="hand-list"></div></div>
+        <div class="hand-box" data-hand-owner="b"><strong>先手の持ち駒</strong><div id="handB" class="hand-list"></div></div>
+      </div>
+      </div>
+
+      <div class="board-options">
+        <label class="field">
+          <span>手番（攻め方）</span>
+          <select id="turnSelect"><option value="b">先手（▲）</option><option value="w">後手（△）</option></select>
+        </label>
+      </div>
+
+      <div class="board-actions">
+        <button id="sampleBtn" class="button secondary">サンプル問題</button>
+        <button id="solveBtn" class="button primary">詰みを探索</button>
+      </div>
+      <p class="footnote">攻め方の玉は省略できます。玉方の持ち駒は、標準の駒数から盤上・攻め方の持ち駒を引いて自動計算します。</p>
+    </section>
+
+    <aside class="side-column">
+      <section class="panel editor-panel">
+      <div class="piece-editor">
+        <div class="editor-title">
+          <h3>配置する駒</h3>
+          <div class="owner-switch" role="group" aria-label="駒の所有者">
+            <button class="owner-btn active" data-owner="b">先手 ▲</button>
+            <button class="owner-btn" data-owner="w">後手 △</button>
+          </div>
+        </div>
+        <div id="piecePalette" class="piece-palette"></div>
+        <p class="hint">駒一覧は未成駒のみです。ドラッグ（またはクリックで選んでから盤面をクリック）で盤面に配置します。攻め方の持ち駒は、ドラッグするか、盤の横の持ち駒欄をクリックして追加できます。盤上の駒は右クリックで所有者・成り状態を切り替えられます。</p>
+        
+      </div>
+
+      </section>
+      <section class="panel">
+        <div class="panel-heading"><div><h2>解答</h2><p>作意手順と探索木を表示します。←→キーで手を進められ、探索木の差し手を押すと変化手順を確認できます。</p></div></div>
+        <div id="result" class="result empty">
+          <div class="empty-icon">詰</div>
+          <h3>盤面を作成してください</h3>
+          <p>玉方の玉を配置し、「詰みを探索」を押してください。</p>
+        </div>
+        <div id="solution" class="solution hidden"></div>
+      </section>
+      <section class="panel">
+        <h2>入力チェック</h2>
+        <ul id="validation" class="validation"><li>盤面を入力してください。</li></ul>
+      </section>
+    </aside>
+  </main>
+  <footer>TSUME SHOGI LAB · HTML / CSS / JavaScript</footer>
+  <script src="script.js"></script>
+</body>
+</html>
